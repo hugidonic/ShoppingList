@@ -1,7 +1,7 @@
 package com.hugidonic.shoppinglist.domain
 
-class GetShopItemByIdUseCase {
+class GetShopItemByIdUseCase(private val shopListRepository: ShopListRepository) {
     fun getShopItemById(shopItemId: Int): ShopItem {
-        TODO()
+        return shopListRepository.getShopItemById(shopItemId)
     }
 }

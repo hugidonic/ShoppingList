@@ -1,7 +1,7 @@
 package com.hugidonic.shoppinglist.domain
 
-class CreateShopItemUseCase {
+class CreateShopItemUseCase(private val shopListRepository: ShopListRepository) {
     fun createShopItem(shopItem: ShopItem): Unit {
-        TODO()
+        shopListRepository.createShopItem(shopItem)
     }
 }
