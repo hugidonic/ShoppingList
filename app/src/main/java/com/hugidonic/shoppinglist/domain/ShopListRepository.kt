@@ -3,9 +3,9 @@ package com.hugidonic.shoppinglist.domain
 interface ShopListRepository {
     fun createShopItem(shopItem: ShopItem): Unit
 
-    fun deleteShopItem(id: Int): Unit
+    fun deleteShopItem(shopItem: ShopItem): Unit
 
-    fun editShopItem(id: Int): Unit
+    fun editShopItem(shopItem: ShopItem): Unit
 
     fun getShopItemById(shopItemId: Int): ShopItem
 
