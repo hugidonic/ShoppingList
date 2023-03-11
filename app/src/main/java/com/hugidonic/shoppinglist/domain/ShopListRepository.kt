@@ -1,7 +1,7 @@
 package com.hugidonic.shoppinglist.domain
 
 interface ShopListRepository {
-    fun createShopItem(shopItem: ShopItem): Unit
+    fun addShopItem(shopItem: ShopItem): Unit
 
     fun deleteShopItem(shopItem: ShopItem): Unit
 
