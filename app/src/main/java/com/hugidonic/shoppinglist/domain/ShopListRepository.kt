@@ -1,5 +1,7 @@
 package com.hugidonic.shoppinglist.domain
 
+import androidx.lifecycle.LiveData
+
 interface ShopListRepository {
     fun addShopItem(shopItem: ShopItem): Unit
 
@@ -9,5 +11,5 @@ interface ShopListRepository {
 
     fun getShopItemById(shopItemId: Int): ShopItem
 
-    fun getShopList(): List<ShopItem>
+    fun getShopList(): LiveData<List<ShopItem>>
 }
