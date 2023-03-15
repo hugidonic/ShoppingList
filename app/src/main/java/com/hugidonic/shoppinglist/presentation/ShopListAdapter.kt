@@ -4,18 +4,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.hugidonic.shoppinglist.R
 import com.hugidonic.shoppinglist.domain.ShopItem
 
-class ShopListAdapter(
-): RecyclerView.Adapter<ShopListAdapter.ShopListViewHolder>() {
+class ShopListAdapter(): RecyclerView.Adapter<ShopListAdapter.ShopListViewHolder>() {
 
 	var shopList = listOf<ShopItem>()
 		set(value) {
 			field = value
 			notifyDataSetChanged()
 		}
+
+//	var onShopItemClickListener: OnShopItemLongClickListener? = null
+	var onShopItemClickListener: ((shopItem: ShopItem) -> Unit)? = null
+	var onShopItemLongClickListener: ((shopItem: ShopItem) -> Unit)? = null
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShopListViewHolder {
 		val layoutId = when (viewType) {
@@ -35,17 +39,28 @@ class ShopListAdapter(
 		}
 	}
 
-
+	private fun getItem(position: Int): ShopItem {
+		return shopList[position]
+	}
 
 	override fun getItemCount(): Int {
 		return shopList.size
 	}
 
 	override fun onBindViewHolder(holder: ShopListViewHolder, position: Int) {
-		holder.bind(shopList[position])
+		val shopItem = getItem(position)
+		holder.bind(shopItem)
+		holder.view.setOnLongClickListener {
+			onShopItemLongClickListener?.invoke(shopItem)
+			true
+		}
+		holder.view.setOnClickListener {
+			onShopItemClickListener?.invoke(shopItem)
+		}
+
 	}
 
-	class ShopListViewHolder(view: View): RecyclerView.ViewHolder(view) {
+	class ShopListViewHolder(val view: View): RecyclerView.ViewHolder(view) {
 		private val tvName = view.findViewById<TextView>(R.id.tv_name)
 		private val tvCount = view.findViewById<TextView>(R.id.tv_count)
 
@@ -54,6 +69,10 @@ class ShopListAdapter(
 			tvCount.text = shopItem.count.toString()
 		}
 	}
+//
+//	interface OnShopItemLongClickListener {
+//		fun onShopItemLongClick(shopItem: ShopItem)
+//	}
 
 	companion object {
 		const val ENABLED_VIEW_TYPE = 1
