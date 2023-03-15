@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.hugidonic.shoppinglist.R
 
@@ -19,7 +20,6 @@ class MainActivity : AppCompatActivity() {
 
 		viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 		viewModel.shopList.observe(this) {
-			Log.d("MainActivity test", it.toString())
 			shopListAdapter.shopList = it
 		}
 	}
@@ -37,6 +37,39 @@ class MainActivity : AppCompatActivity() {
 				ShopListAdapter.DISABLED_VIEW_TYPE,
 				ShopListAdapter.maxPoolSize
 			)
+		}
+
+		setupClickListener()
+		setupLongClickListener()
+		setupSwipeListener(rvShopList)
+	}
+
+	private fun setupSwipeListener(rvShopList: RecyclerView?) {
+		val callback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+			override fun onMove(
+				recyclerView: RecyclerView,
+				viewHolder: RecyclerView.ViewHolder,
+				target: RecyclerView.ViewHolder
+			): Boolean = false
+
+			override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+				val shopItem = shopListAdapter.shopList[viewHolder.adapterPosition]
+				viewModel.deleteShopItem(shopItem)
+
+			}
+		}
+		ItemTouchHelper(callback).attachToRecyclerView(rvShopList)
+	}
+
+	private fun setupLongClickListener() {
+		shopListAdapter.onShopItemLongClickListener = {
+			Log.d("Item Click", "Item №${it.id} clicked")
+		}
+	}
+
+	private fun setupClickListener() {
+		shopListAdapter.onShopItemClickListener = {
+			viewModel.changeEnableState(it)
 		}
 	}
 }
