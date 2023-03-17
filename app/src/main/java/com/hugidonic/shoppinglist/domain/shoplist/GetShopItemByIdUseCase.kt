@@ -1,4 +1,6 @@
-package com.hugidonic.shoppinglist.domain
+package com.hugidonic.shoppinglist.domain.shoplist
+
+import com.hugidonic.shoppinglist.domain.ShopItem
 
 class GetShopItemByIdUseCase(private val shopListRepository: ShopListRepository) {
     fun getShopItemById(shopItemId: Int): ShopItem {

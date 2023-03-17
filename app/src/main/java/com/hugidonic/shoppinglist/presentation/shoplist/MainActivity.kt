@@ -1,4 +1,4 @@
-package com.hugidonic.shoppinglist.presentation
+package com.hugidonic.shoppinglist.presentation.shoplist
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

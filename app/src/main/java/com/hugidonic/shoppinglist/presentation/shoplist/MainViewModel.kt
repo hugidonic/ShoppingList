@@ -1,8 +1,9 @@
-package com.hugidonic.shoppinglist.presentation
+package com.hugidonic.shoppinglist.presentation.shoplist
 
 import androidx.lifecycle.ViewModel
 import com.hugidonic.shoppinglist.data.ShopListRepositoryImpl
-import com.hugidonic.shoppinglist.domain.*
+import com.hugidonic.shoppinglist.domain.ShopItem
+import com.hugidonic.shoppinglist.domain.shoplist.*
 
 class MainViewModel: ViewModel() {
     private val repository: ShopListRepository = ShopListRepositoryImpl

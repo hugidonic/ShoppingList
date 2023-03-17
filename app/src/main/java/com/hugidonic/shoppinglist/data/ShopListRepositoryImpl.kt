@@ -3,7 +3,7 @@ package com.hugidonic.shoppinglist.data
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.hugidonic.shoppinglist.domain.ShopItem
-import com.hugidonic.shoppinglist.domain.ShopListRepository
+import com.hugidonic.shoppinglist.domain.shoplist.ShopListRepository
 import java.lang.RuntimeException
 import kotlin.random.Random
 

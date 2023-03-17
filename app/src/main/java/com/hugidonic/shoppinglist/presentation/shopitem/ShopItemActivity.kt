@@ -1,7 +1,8 @@
-package com.hugidonic.shoppinglist.presentation
+package com.hugidonic.shoppinglist.presentation.shopitem
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.hugidonic.shoppinglist.R
 
 class ShopItemActivity : AppCompatActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
