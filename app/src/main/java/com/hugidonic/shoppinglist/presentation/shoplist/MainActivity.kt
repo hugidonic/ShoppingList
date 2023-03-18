@@ -63,7 +63,8 @@ class MainActivity : AppCompatActivity() {
 
 	private fun setupLongClickListener() {
 		shopListAdapter.onShopItemLongClickListener = {
-			Log.d("Item Click", "Item №${it.id} clicked")
+			val intent = ShopItemActivity.newIntentEditItem(this@MainActivity, it.id)
+			startActivity(intent)
 		}
 	}
 
