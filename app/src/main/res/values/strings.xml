@@ -1,8 +1,10 @@
 <resources>
   <string name="app_name">ShoppingList</string>
-  <string name="add_new_shop_item">Add new shop item
-  </string>
+  <string name="add_new_shop_item">Add new shop item</string>
 	<string name="NameInput">Name:</string>
 	<string name="CountInput">Count:</string>
 	<string name="save">Save</string>
+
+	<string name="ui_input_name_error">Wrong name</string>
+	<string name="ui_input_count_error">Wrong count</string>
 </resources>
