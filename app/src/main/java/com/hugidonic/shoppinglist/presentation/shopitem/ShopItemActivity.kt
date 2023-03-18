@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.Button
 import android.widget.EditText
 import androidx.lifecycle.ViewModelProvider
@@ -31,10 +33,38 @@ class ShopItemActivity : AppCompatActivity() {
 
 		viewModel = ViewModelProvider(this)[ShopItemViewModel::class.java]
 		initViews()
+		setupOnTextChangedListener()
 
+		launchRightMode()
+		observeViewModel()
+	}
+
+	private fun launchRightMode() {
 		when(screenMode) {
 			MODE_EDIT -> launchEditMode()
 			MODE_ADD -> launchAddMode()
+		}
+	}
+
+	private fun observeViewModel() {
+		viewModel.isInputNameError.observe(this) {
+			val message = if (it) {
+				getString(R.string.ui_input_name_error)
+			} else {
+				null
+			}
+			tilName.error = message
+		}
+		viewModel.isInputCountError.observe(this) {
+			val message = if (it) {
+				getString(R.string.ui_input_count_error)
+			} else {
+				null
+			}
+			tilCount.error = message
+		}
+		viewModel.shouldCloseScreen.observe(this) {
+			finish()
 		}
 	}
 
@@ -44,24 +74,50 @@ class ShopItemActivity : AppCompatActivity() {
 			etName.setText(it.name)
 			etCount.setText(it.count.toString())
 		}
-
 		setupEditBtnClickListener()
+	}
 
+	private fun setupOnTextChangedListener() {
+		etName.addTextChangedListener(object : TextWatcher {
+			override fun afterTextChanged(s: Editable) {}
+			override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+			override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+				viewModel.resetErrorInputName()
+			}
+		})
+
+		etCount.addTextChangedListener(object : TextWatcher {
+			override fun afterTextChanged(s: Editable) {}
+			override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+			override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+				viewModel.resetErrorInputCount()
+			}
+		})
 	}
 
 	private fun setupEditBtnClickListener() {
 		btnSave.setOnClickListener {
 			viewModel.editShopItem(
-				inputName = etName.text.toString(),
-				inputCount = etCount.text.toString()
+				inputName = etName.text?.toString(),
+				inputCount = etCount.text?.toString()
 			)
-			finish()
 		}
 	}
 
 	private fun launchAddMode() {
-
+		setupAddBtnClickListener()
 	}
+
+	private fun setupAddBtnClickListener() {
+		btnSave.setOnClickListener() {
+			viewModel.addShopItem(
+				inputName = etName.text?.toString(),
+				inputCount = etCount.text?.toString()
+			)
+		}
+	}
+
+
 
 	private fun parseIntent() {
 //		Checking if intent has screen mode param
