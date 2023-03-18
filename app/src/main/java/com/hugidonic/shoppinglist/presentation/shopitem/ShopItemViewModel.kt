@@ -33,9 +33,8 @@ class ShopItemViewModel: ViewModel() {
 	val isInputCountError: LiveData<Boolean>
 		get() = _isInputCountError
 
-	fun getShopItem(shopItemId: Int){
-		val item: ShopItem =  getShopItemByIdUseCase.getShopItemById(shopItemId)
-		_currentShopItem.value = item
+	fun getShopItem(shopItemId: Int) {
+		_currentShopItem.value = getShopItemByIdUseCase.getShopItemById(shopItemId)
 	}
 
 	fun addShopItem(inputName: String?, inputCount: String) {

@@ -39,7 +39,24 @@ class ShopItemActivity : AppCompatActivity() {
 	}
 
 	private fun launchEditMode() {
+		viewModel.getShopItem(shopItemId)
+		viewModel.currentShopItem.observe(this@ShopItemActivity) {
+			etName.setText(it.name)
+			etCount.setText(it.count.toString())
+		}
 
+		setupEditBtnClickListener()
+
+	}
+
+	private fun setupEditBtnClickListener() {
+		btnSave.setOnClickListener {
+			viewModel.editShopItem(
+				inputName = etName.text.toString(),
+				inputCount = etCount.text.toString()
+			)
+			finish()
+		}
 	}
 
 	private fun launchAddMode() {
