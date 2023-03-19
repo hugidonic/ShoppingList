@@ -1,7 +1,6 @@
 package com.hugidonic.shoppinglist.presentation.shopitem
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import androidx.activity.OnBackPressedDispatcher
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.textfield.TextInputLayout
@@ -20,6 +18,7 @@ import com.hugidonic.shoppinglist.domain.ShopItem
 class ShopItemFragment(): Fragment() {
 
 	private lateinit var viewModel: ShopItemViewModel
+	private lateinit var onEditingFinishedListener: OnEditingFinishedListener
 
 	private lateinit var tilName: TextInputLayout
 	private lateinit var tilCount: TextInputLayout
@@ -29,6 +28,15 @@ class ShopItemFragment(): Fragment() {
 
 	private var screenMode: String = MODE_UNKNOWN
 	private var shopItemId: Int = ShopItem.UNDEFINED_ID
+
+	override fun onAttach(context: Context) {
+		super.onAttach(context)
+		if (context is OnEditingFinishedListener) {
+			onEditingFinishedListener = context
+		} else {
+			throw RuntimeException("Activity must implement OnEditingFinishedListener")
+		}
+	}
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -79,7 +87,7 @@ class ShopItemFragment(): Fragment() {
 			tilCount.error = message
 		}
 		viewModel.shouldCloseScreen.observe(viewLifecycleOwner) {
-			OnBackPressedDispatcher().onBackPressed()
+			onEditingFinishedListener.onEditingFinished()
 		}
 	}
 
@@ -158,6 +166,10 @@ class ShopItemFragment(): Fragment() {
 		etName = view.findViewById(R.id.et_name)
 		etCount = view.findViewById(R.id.et_count)
 		btnSave = view.findViewById(R.id.btn_save)
+	}
+
+	interface OnEditingFinishedListener {
+		fun onEditingFinished()
 	}
 
 	companion object {
