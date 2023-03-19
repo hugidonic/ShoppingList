@@ -1,4 +1,4 @@
-package com.hugidonic.shoppinglist.presentation
+package com.hugidonic.shoppinglist.presentation.shoplist
 
 import androidx.recyclerview.widget.DiffUtil
 import com.hugidonic.shoppinglist.domain.ShopItem

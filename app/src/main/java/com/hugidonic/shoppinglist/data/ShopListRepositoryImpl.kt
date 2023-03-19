@@ -3,7 +3,7 @@ package com.hugidonic.shoppinglist.data
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.hugidonic.shoppinglist.domain.ShopItem
-import com.hugidonic.shoppinglist.domain.ShopListRepository
+import com.hugidonic.shoppinglist.domain.shoplist.ShopListRepository
 import java.lang.RuntimeException
 import kotlin.random.Random
 
@@ -15,7 +15,7 @@ object ShopListRepositoryImpl: ShopListRepository {
 
 
     init {
-        for (i in 0 until 100) {
+        for (i in 1 until 10) {
             val item = ShopItem("Name $i", i, Random.nextBoolean())
             addShopItem(item)
         }

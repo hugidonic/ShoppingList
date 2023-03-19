@@ -1,4 +1,4 @@
-package com.hugidonic.shoppinglist.presentation
+package com.hugidonic.shoppinglist.presentation.shoplist
 
 import android.view.View
 import android.widget.TextView

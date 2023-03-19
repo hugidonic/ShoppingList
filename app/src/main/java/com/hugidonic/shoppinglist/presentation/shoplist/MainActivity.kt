@@ -1,12 +1,13 @@
-package com.hugidonic.shoppinglist.presentation
+package com.hugidonic.shoppinglist.presentation.shoplist
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.hugidonic.shoppinglist.R
+import com.hugidonic.shoppinglist.presentation.shopitem.ShopItemActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,6 +18,11 @@ class MainActivity : AppCompatActivity() {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
 		setupRecyclerView()
+
+		findViewById<FloatingActionButton>(R.id.btn_add_shop_item).setOnClickListener {
+			val intent = ShopItemActivity.newIntentAddItem(this@MainActivity)
+			startActivity(intent)
+		}
 
 		viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 		viewModel.shopList.observe(this) {
@@ -63,7 +69,8 @@ class MainActivity : AppCompatActivity() {
 
 	private fun setupLongClickListener() {
 		shopListAdapter.onShopItemLongClickListener = {
-			Log.d("Item Click", "Item №${it.id} clicked")
+			val intent = ShopItemActivity.newIntentEditItem(this@MainActivity, it.id)
+			startActivity(intent)
 		}
 	}
 
