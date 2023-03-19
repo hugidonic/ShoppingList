@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import androidx.activity.OnBackPressedDispatcher
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.textfield.TextInputLayout
@@ -78,7 +79,7 @@ class ShopItemFragment(): Fragment() {
 			tilCount.error = message
 		}
 		viewModel.shouldCloseScreen.observe(viewLifecycleOwner) {
-			activity?.finish()
+			OnBackPressedDispatcher().onBackPressed()
 		}
 	}
 
