@@ -1,12 +1,14 @@
 package com.hugidonic.shoppinglist.presentation.shoplist
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.viewModelScope
 import com.hugidonic.shoppinglist.data.ShopListRepositoryImpl
 import com.hugidonic.shoppinglist.domain.ShopItem
 import com.hugidonic.shoppinglist.domain.shoplist.*
 
-class MainViewModel: ViewModel() {
-    private val repository: ShopListRepository = ShopListRepositoryImpl
+class MainViewModel(application: Application): AndroidViewModel(application) {
+    private val repository: ShopListRepository = ShopListRepositoryImpl(application)
 
     private val getShopListUseCase = GetShopListUseCase(repository)
     private val deleteShopItemUseCase = DeleteShopItemUseCase(repository)
