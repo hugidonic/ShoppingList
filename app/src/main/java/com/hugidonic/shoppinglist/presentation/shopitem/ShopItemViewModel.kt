@@ -4,12 +4,13 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.hugidonic.shoppinglist.data.ShopListRepositoryImpl
 import com.hugidonic.shoppinglist.domain.ShopItem
 import com.hugidonic.shoppinglist.domain.shoplist.AddShopItemUseCase
 import com.hugidonic.shoppinglist.domain.shoplist.EditShopItemUseCase
 import com.hugidonic.shoppinglist.domain.shoplist.GetShopItemByIdUseCase
+import kotlinx.coroutines.launch
 
 class ShopItemViewModel(application: Application): AndroidViewModel(application) {
 
@@ -36,29 +37,35 @@ class ShopItemViewModel(application: Application): AndroidViewModel(application)
 		get() = _isInputCountError
 
 	fun getShopItem(shopItemId: Int) {
-		_currentShopItem.value = getShopItemByIdUseCase.getShopItemById(shopItemId)
+		viewModelScope.launch {
+			_currentShopItem.value = getShopItemByIdUseCase.getShopItemById(shopItemId)
+		}
 	}
 
 	fun addShopItem(inputName: String?, inputCount: String?) {
-		val name: String = parseName(inputName)
-		val count: Int = parseCount(inputCount)
-		val isFieldsValid: Boolean = validateInput(name, count)
-		if (isFieldsValid) {
-			val shopItem = ShopItem(name, count, true)
-			addShopItemUseCase.addShopItem(shopItem)
-			finishWork()
+		viewModelScope.launch {
+			val name: String = parseName(inputName)
+			val count: Int = parseCount(inputCount)
+			val isFieldsValid: Boolean = validateInput(name, count)
+			if (isFieldsValid) {
+				val shopItem = ShopItem(name, count, true)
+				addShopItemUseCase.addShopItem(shopItem)
+				finishWork()
+			}
 		}
 	}
 
 	fun editShopItem(inputName: String?, inputCount: String?) {
-		val name: String = parseName(inputName)
-		val count: Int = parseCount(inputCount)
-		val isFieldsValid = validateInput(name, count)
-		if (isFieldsValid) {
-			_currentShopItem.value?.let {
-				val item = it.copy(name=name, count=count)
-				editShopItemUseCase.editShopItem(item)
-				finishWork()
+		viewModelScope.launch {
+			val name: String = parseName(inputName)
+			val count: Int = parseCount(inputCount)
+			val isFieldsValid = validateInput(name, count)
+			if (isFieldsValid) {
+				_currentShopItem.value?.let {
+					val item = it.copy(name=name, count=count)
+					editShopItemUseCase.editShopItem(item)
+					finishWork()
+				}
 			}
 		}
 	}
@@ -99,5 +106,4 @@ class ShopItemViewModel(application: Application): AndroidViewModel(application)
 	private fun finishWork() {
 		_shouldCloseScreen.value = Unit
 	}
-
 }
