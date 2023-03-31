@@ -3,7 +3,7 @@ package com.hugidonic.shoppinglist.domain.shoplist
 import com.hugidonic.shoppinglist.domain.ShopItem
 
 class DeleteShopItemUseCase(private val shopListRepository: ShopListRepository) {
-    fun deleteShopItem(shopItem: ShopItem): Unit {
+    suspend fun deleteShopItem(shopItem: ShopItem) {
         shopListRepository.deleteShopItem(shopItem)
     }
 }

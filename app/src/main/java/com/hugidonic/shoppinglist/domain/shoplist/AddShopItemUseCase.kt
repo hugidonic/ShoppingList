@@ -3,7 +3,7 @@ package com.hugidonic.shoppinglist.domain.shoplist
 import com.hugidonic.shoppinglist.domain.ShopItem
 
 class AddShopItemUseCase(private val shopListRepository: ShopListRepository) {
-    fun addShopItem(shopItem: ShopItem): Unit {
+    suspend fun addShopItem(shopItem: ShopItem) {
         shopListRepository.addShopItem(shopItem)
     }
 }
