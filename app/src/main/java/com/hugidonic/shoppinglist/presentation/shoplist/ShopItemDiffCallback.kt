@@ -1,7 +1,7 @@
 package com.hugidonic.shoppinglist.presentation.shoplist
 
 import androidx.recyclerview.widget.DiffUtil
-import com.hugidonic.shoppinglist.domain.ShopItem
+import com.hugidonic.domain.ShopItem
 
 class ShopItemDiffCallback: DiffUtil.ItemCallback<ShopItem>() {
 	override fun areItemsTheSame(oldItem: ShopItem, newItem: ShopItem): Boolean {

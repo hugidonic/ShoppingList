@@ -1,7 +1,7 @@
-package com.hugidonic.shoppinglist.data
+package com.hugidonic.data
 
 import androidx.room.TypeConverter
-import com.hugidonic.shoppinglist.domain.ShopItem
+import com.hugidonic.domain.ShopItem
 
 class ShopListMapper {
 	@TypeConverter

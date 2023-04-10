@@ -1,7 +1,7 @@
-package com.hugidonic.shoppinglist.domain.shoplist
+package com.hugidonic.domain.shoplist
 
 import androidx.lifecycle.LiveData
-import com.hugidonic.shoppinglist.domain.ShopItem
+import com.hugidonic.domain.ShopItem
 
 interface ShopListRepository {
     suspend fun addShopItem(shopItem: ShopItem)

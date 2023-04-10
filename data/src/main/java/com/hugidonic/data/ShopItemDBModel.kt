@@ -1,4 +1,4 @@
-package com.hugidonic.shoppinglist.data
+package com.hugidonic.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

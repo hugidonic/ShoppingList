@@ -4,9 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.hugidonic.shoppinglist.R
-import com.hugidonic.shoppinglist.domain.ShopItem
+import com.hugidonic.domain.ShopItem
 
-class ShopListAdapter(): ListAdapter<ShopItem, ShopItemViewHolder>(ShopItemDiffCallback()) {
+class ShopListAdapter: ListAdapter<ShopItem, ShopItemViewHolder>(ShopItemDiffCallback()) {
 
 	var onShopItemClickListener: ((shopItem: ShopItem) -> Unit)? = null
 	var onShopItemLongClickListener: ((shopItem: ShopItem) -> Unit)? = null

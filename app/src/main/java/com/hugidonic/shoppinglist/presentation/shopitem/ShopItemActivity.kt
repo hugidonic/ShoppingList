@@ -5,8 +5,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.hugidonic.domain.ShopItem
 import com.hugidonic.shoppinglist.R
-import com.hugidonic.shoppinglist.domain.ShopItem
 
 class ShopItemActivity : AppCompatActivity(), ShopItemFragment.OnEditingFinishedListener {
 	private var screenMode: String = MODE_UNKNOWN

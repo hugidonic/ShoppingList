@@ -1,4 +1,4 @@
-package com.hugidonic.shoppinglist.domain
+package com.hugidonic.domain
 
 data class ShopItem(
 	val name: String,

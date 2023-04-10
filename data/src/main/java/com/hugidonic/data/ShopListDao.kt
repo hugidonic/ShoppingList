@@ -1,4 +1,4 @@
-package com.hugidonic.shoppinglist.data
+package com.hugidonic.data
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao

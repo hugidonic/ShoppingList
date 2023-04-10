@@ -5,11 +5,11 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.hugidonic.shoppinglist.data.ShopListRepositoryImpl
-import com.hugidonic.shoppinglist.domain.ShopItem
-import com.hugidonic.shoppinglist.domain.shoplist.AddShopItemUseCase
-import com.hugidonic.shoppinglist.domain.shoplist.EditShopItemUseCase
-import com.hugidonic.shoppinglist.domain.shoplist.GetShopItemByIdUseCase
+import com.hugidonic.data.ShopListRepositoryImpl
+import com.hugidonic.domain.ShopItem
+import com.hugidonic.domain.shoplist.AddShopItemUseCase
+import com.hugidonic.domain.shoplist.EditShopItemUseCase
+import com.hugidonic.domain.shoplist.GetShopItemByIdUseCase
 import kotlinx.coroutines.launch
 
 class ShopItemViewModel(application: Application): AndroidViewModel(application) {
@@ -18,7 +18,8 @@ class ShopItemViewModel(application: Application): AndroidViewModel(application)
 
 	private val editShopItemUseCase = EditShopItemUseCase(repository)
 	private val addShopItemUseCase = AddShopItemUseCase(repository)
-	private val getShopItemByIdUseCase = GetShopItemByIdUseCase(repository)
+	private val getShopItemByIdUseCase =
+		GetShopItemByIdUseCase(repository)
 
 	private val _shouldCloseScreen = MutableLiveData<Unit>()
 	val shouldCloseScreen: LiveData<Unit>

@@ -1,10 +1,10 @@
-package com.hugidonic.shoppinglist.data
+package com.hugidonic.data
 
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
-import com.hugidonic.shoppinglist.domain.ShopItem
-import com.hugidonic.shoppinglist.domain.shoplist.ShopListRepository
+import com.hugidonic.domain.ShopItem
+import com.hugidonic.domain.shoplist.ShopListRepository
 
 class ShopListRepositoryImpl(
     application: Application

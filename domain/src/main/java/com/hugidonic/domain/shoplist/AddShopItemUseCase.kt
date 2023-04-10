@@ -1,6 +1,6 @@
-package com.hugidonic.shoppinglist.domain.shoplist
+package com.hugidonic.domain.shoplist
 
-import com.hugidonic.shoppinglist.domain.ShopItem
+import com.hugidonic.domain.ShopItem
 
 class AddShopItemUseCase(private val shopListRepository: ShopListRepository) {
     suspend fun addShopItem(shopItem: ShopItem) {

@@ -12,10 +12,10 @@ import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.textfield.TextInputLayout
+import com.hugidonic.domain.ShopItem
 import com.hugidonic.shoppinglist.R
-import com.hugidonic.shoppinglist.domain.ShopItem
 
-class ShopItemFragment(): Fragment() {
+class ShopItemFragment: Fragment() {
 
 	private lateinit var viewModel: ShopItemViewModel
 	private lateinit var onEditingFinishedListener: OnEditingFinishedListener
@@ -132,7 +132,7 @@ class ShopItemFragment(): Fragment() {
 	}
 
 	private fun setupAddBtnClickListener() {
-		btnSave.setOnClickListener() {
+		btnSave.setOnClickListener {
 			viewModel.addShopItem(
 				inputName = etName.text?.toString(),
 				inputCount = etCount.text?.toString()
