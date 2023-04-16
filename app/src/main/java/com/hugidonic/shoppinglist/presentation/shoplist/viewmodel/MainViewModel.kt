@@ -1,4 +1,4 @@
-package com.hugidonic.shoppinglist.presentation.shoplist
+package com.hugidonic.shoppinglist.presentation.shoplist.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

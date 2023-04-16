@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.textfield.TextInputLayout
 import com.hugidonic.domain.ShopItem
 import com.hugidonic.shoppinglist.R
+import com.hugidonic.shoppinglist.presentation.shopitem.viewmodel.ShopItemViewModel
 
 class ShopItemFragment: Fragment() {
 

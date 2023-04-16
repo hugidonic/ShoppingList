@@ -12,6 +12,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.hugidonic.shoppinglist.R
 import com.hugidonic.shoppinglist.presentation.shopitem.ShopItemActivity
 import com.hugidonic.shoppinglist.presentation.shopitem.ShopItemFragment
+import com.hugidonic.shoppinglist.presentation.shoplist.adapter.ShopListAdapter
+import com.hugidonic.shoppinglist.presentation.shoplist.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity(), ShopItemFragment.OnEditingFinishedListener {
 
