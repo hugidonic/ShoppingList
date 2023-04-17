@@ -3,21 +3,31 @@ package com.hugidonic.shoppinglist.presentation.shoplist
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.hugidonic.shoppinglist.R
+import com.hugidonic.shoppinglist.di.appComponent
+//import com.hugidonic.shoppinglist.di.appComponent
 import com.hugidonic.shoppinglist.presentation.shopitem.ShopItemActivity
 import com.hugidonic.shoppinglist.presentation.shopitem.ShopItemFragment
 import com.hugidonic.shoppinglist.presentation.shoplist.adapter.ShopListAdapter
 import com.hugidonic.shoppinglist.presentation.shoplist.viewmodel.MainViewModel
+import com.hugidonic.shoppinglist.presentation.shoplist.viewmodel.MainViewModelFactory
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), ShopItemFragment.OnEditingFinishedListener {
 
-	private lateinit var viewModel: MainViewModel
+	private val viewModel by viewModels<MainViewModel> {
+		mainViewModelFactory
+	}
+
+	@Inject
+	lateinit var mainViewModelFactory: MainViewModelFactory
+
 	private lateinit var shopListAdapter: ShopListAdapter
 	private var shopItemContainer: FragmentContainerView? = null
 
@@ -25,8 +35,8 @@ class MainActivity : AppCompatActivity(), ShopItemFragment.OnEditingFinishedList
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
 		shopItemContainer = findViewById(R.id.shop_item_container)
-
 		setupRecyclerView()
+		appComponent.inject(this)
 
 		findViewById<FloatingActionButton>(R.id.btn_add_shop_item).setOnClickListener {
 			if (isOnePaneMode()) {
@@ -37,7 +47,6 @@ class MainActivity : AppCompatActivity(), ShopItemFragment.OnEditingFinishedList
 			}
 		}
 
-		viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 		viewModel.shopList.observe(this) {
 			shopListAdapter.submitList(it)
 		}

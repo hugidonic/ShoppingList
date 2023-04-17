@@ -10,15 +10,24 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.google.android.material.textfield.TextInputLayout
 import com.hugidonic.domain.ShopItem
 import com.hugidonic.shoppinglist.R
+import com.hugidonic.shoppinglist.di.appComponent
 import com.hugidonic.shoppinglist.presentation.shopitem.viewmodel.ShopItemViewModel
+import com.hugidonic.shoppinglist.presentation.shopitem.viewmodel.ShopItemViewModelFactory
+import javax.inject.Inject
 
 class ShopItemFragment: Fragment() {
 
-	private lateinit var viewModel: ShopItemViewModel
+	private val viewModel by viewModels<ShopItemViewModel> {
+		shopItemViewModelFactory
+	}
+
+	@Inject
+	lateinit var shopItemViewModelFactory: ShopItemViewModelFactory
+
 	private lateinit var onEditingFinishedListener: OnEditingFinishedListener
 
 	private lateinit var tilName: TextInputLayout
@@ -32,6 +41,8 @@ class ShopItemFragment: Fragment() {
 
 	override fun onAttach(context: Context) {
 		super.onAttach(context)
+		requireContext().appComponent.inject(this)
+
 		if (context is OnEditingFinishedListener) {
 			onEditingFinishedListener = context
 		} else {
@@ -55,7 +66,6 @@ class ShopItemFragment: Fragment() {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 
-		viewModel = ViewModelProvider(this)[ShopItemViewModel::class.java]
 		initViews(view)
 		setupOnTextChangedListener()
 

@@ -1,19 +1,17 @@
 package com.hugidonic.data
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import com.hugidonic.domain.ShopItem
 import com.hugidonic.domain.shoplist.ShopListRepository
 
 class ShopListRepositoryImpl(
-    application: Application
+    private val shopListDao: ShopListDao,
+    private val shopListMapper: ShopListMapper,
 ): ShopListRepository {
-    private val shopListDao = AppDatabase.getInstance(application).shopListDao()
-    private val mapper = ShopListMapper()
 
     override suspend fun addShopItem(shopItem: ShopItem) {
-        shopListDao.addShopItem(mapper.mapEntityToDbModel(shopItem))
+        shopListDao.addShopItem(shopListMapper.mapEntityToDbModel(shopItem))
     }
 
     override suspend fun deleteShopItem(shopItem: ShopItem) {
@@ -21,17 +19,17 @@ class ShopListRepositoryImpl(
     }
 
     override suspend fun editShopItem(shopItem: ShopItem) {
-        shopListDao.addShopItem(mapper.mapEntityToDbModel(shopItem))
+        shopListDao.addShopItem(shopListMapper.mapEntityToDbModel(shopItem))
     }
 
     override suspend fun getShopItemById(shopItemId: Int): ShopItem {
         val dbModel = shopListDao.getShopItem(shopItemId)
-        return mapper.mapDbModelToEntity(dbModel)
+        return shopListMapper.mapDbModelToEntity(dbModel)
     }
 
     override fun getShopList(): LiveData<List<ShopItem>> = shopListDao.getShopList()
         .map {
-            mapper.mapListDbModelToListEntity(it)
+            shopListMapper.mapListDbModelToListEntity(it)
         }
 
 }

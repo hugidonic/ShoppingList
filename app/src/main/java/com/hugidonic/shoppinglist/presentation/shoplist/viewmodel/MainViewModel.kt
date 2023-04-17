@@ -1,24 +1,18 @@
 package com.hugidonic.shoppinglist.presentation.shoplist.viewmodel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.hugidonic.data.ShopListRepositoryImpl
 import com.hugidonic.domain.ShopItem
 import com.hugidonic.domain.shoplist.DeleteShopItemUseCase
 import com.hugidonic.domain.shoplist.EditShopItemUseCase
 import com.hugidonic.domain.shoplist.GetShopListUseCase
-import com.hugidonic.domain.shoplist.ShopListRepository
 import kotlinx.coroutines.launch
 
-class MainViewModel(application: Application): AndroidViewModel(application) {
-    private val repository: ShopListRepository =
-		ShopListRepositoryImpl(application)
-
-    private val getShopListUseCase = GetShopListUseCase(repository)
-    private val deleteShopItemUseCase =
-		DeleteShopItemUseCase(repository)
-    private val editShopItemUseCase = EditShopItemUseCase(repository)
+class MainViewModel(
+    private val getShopListUseCase: GetShopListUseCase,
+    private val deleteShopItemUseCase: DeleteShopItemUseCase,
+    private val editShopItemUseCase: EditShopItemUseCase,
+): ViewModel() {
 
     val shopList = getShopListUseCase.getShopList()
 
