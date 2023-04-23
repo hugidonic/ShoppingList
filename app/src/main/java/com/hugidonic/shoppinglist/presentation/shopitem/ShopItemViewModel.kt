@@ -1,25 +1,22 @@
 package com.hugidonic.shoppinglist.presentation.shopitem
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.hugidonic.data.ShopListRepositoryImpl
 import com.hugidonic.domain.ShopItem
 import com.hugidonic.domain.shoplist.AddShopItemUseCase
 import com.hugidonic.domain.shoplist.EditShopItemUseCase
 import com.hugidonic.domain.shoplist.GetShopItemByIdUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ShopItemViewModel(application: Application): AndroidViewModel(application) {
-
-	private val repository = ShopListRepositoryImpl(application)
-
-	private val editShopItemUseCase = EditShopItemUseCase(repository)
-	private val addShopItemUseCase = AddShopItemUseCase(repository)
-	private val getShopItemByIdUseCase =
-		GetShopItemByIdUseCase(repository)
+@HiltViewModel
+class ShopItemViewModel @Inject constructor(
+	private val editShopItemUseCase: EditShopItemUseCase,
+	private val addShopItemUseCase: AddShopItemUseCase,
+	private val getShopItemByIdUseCase: GetShopItemByIdUseCase,
+): ViewModel() {
 
 	private val _shouldCloseScreen = MutableLiveData<Unit>()
 	val shouldCloseScreen: LiveData<Unit>

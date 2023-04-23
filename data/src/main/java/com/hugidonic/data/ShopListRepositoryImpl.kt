@@ -1,16 +1,14 @@
 package com.hugidonic.data
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import com.hugidonic.domain.ShopItem
 import com.hugidonic.domain.shoplist.ShopListRepository
 
 class ShopListRepositoryImpl(
-    application: Application
+    private val shopListDao: ShopListDao,
+    private val mapper: ShopListMapper,
 ): ShopListRepository {
-    private val shopListDao = AppDatabase.getInstance(application).shopListDao()
-    private val mapper = ShopListMapper()
 
     override suspend fun addShopItem(shopItem: ShopItem) {
         shopListDao.addShopItem(mapper.mapEntityToDbModel(shopItem))

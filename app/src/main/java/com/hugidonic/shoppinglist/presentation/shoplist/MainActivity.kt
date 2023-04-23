@@ -3,19 +3,22 @@ package com.hugidonic.shoppinglist.presentation.shoplist
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.hugidonic.shoppinglist.R
 import com.hugidonic.shoppinglist.presentation.shopitem.ShopItemActivity
 import com.hugidonic.shoppinglist.presentation.shopitem.ShopItemFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity(), ShopItemFragment.OnEditingFinishedListener {
 
-	private lateinit var viewModel: MainViewModel
+	private val viewModel: MainViewModel by viewModels()
+
 	private lateinit var shopListAdapter: ShopListAdapter
 	private var shopItemContainer: FragmentContainerView? = null
 
@@ -35,7 +38,6 @@ class MainActivity : AppCompatActivity(), ShopItemFragment.OnEditingFinishedList
 			}
 		}
 
-		viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 		viewModel.shopList.observe(this) {
 			shopListAdapter.submitList(it)
 		}

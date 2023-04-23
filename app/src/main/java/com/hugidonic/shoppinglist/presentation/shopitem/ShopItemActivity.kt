@@ -7,7 +7,9 @@ import android.os.Bundle
 import android.widget.Toast
 import com.hugidonic.domain.ShopItem
 import com.hugidonic.shoppinglist.R
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ShopItemActivity : AppCompatActivity(), ShopItemFragment.OnEditingFinishedListener {
 	private var screenMode: String = MODE_UNKNOWN
 	private var shopItemId: Int = ShopItem.UNDEFINED_ID
